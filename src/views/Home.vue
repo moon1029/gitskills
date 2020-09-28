@@ -13,18 +13,30 @@ import {
   onMounted,
   onUnmounted,
   toRefs
-} from '@vue/composition-api'
+} from '@vue/composition-api';
+import {get,post} from '../../utils/http'
 export default {
   name: "Home",
   components: {
     HelloWorld,
+  },
+  mounted(){
+    this.getCount();
+  },
+  methods:{
+    getCount(){
+      get(this.api.getcount)
+    }
   },
   setup(props,{root}){
     const state = reactive({
 
     });
     onMounted(()=>{ //挂载完成
-      root.$store.dispatch('HIDENAV')
+      root.$store.dispatch('HIDENAV');
+      console.group(root);
+      console.log('请求接口');
+      console.groupEnd();
     });
     onUnmounted(()=>{ //销毁
       root.$store.dispatch('SHOWNAV')
