@@ -2,7 +2,8 @@ import axios from 'axios'
 
 const instance = axios.create({
     //baseURL会在发送接口请求时拼接在url前面,如果是要调用不同的IP地址的接口的，可以将url配置在api.js里面
-    baseURL: "http://localhost:8080",
+    // baseURL: "http://localhost:8080",
+    baseURL: process.env.VUE_APP_DEFAULT_API_TARGET
 })
 
 //  请求拦截
@@ -48,7 +49,7 @@ instance.interceptors.response.use(
                         }
                     });
                     break;
-                    case 404:
+                case 404:
                     // 401: 未登录
                     // 未登录则跳转登录页面，并携带当前页面的路径
                     // 在登录成功后返回当前页面，这一步需要在登录页操作。
@@ -58,7 +59,6 @@ instance.interceptors.response.use(
                     alert(error.response.data.message)  //自选提示组件
             }
         }
-        console.log(1212423545645);
         return Promise.reject(err);
     }
 )
